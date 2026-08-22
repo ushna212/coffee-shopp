@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Brew & Bean{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+
+    <h1>Checkout</h1>
+
+    <p>
+        Complete your order.
+    </p>
+
+</section>
+
+
+{% if success %}
+
+<section class="success-box">
+
+    <div style="font-size: 60px;">
+        ☕
+    </div>
+
+    <h2>Order Confirmed!</h2>
+
+    <p>
+        Thank you, {{ name }}!
+    </p>
+
+    <p>
+        Your order has been successfully placed.
+    </p>
+
+    <p>
+        We have sent your order confirmation to:
+    </p>
+
+    <strong>
+        {{ email }}
+    </strong>
+
+    <p style="margin-top: 15px;">
+        Our team has also received your order
+        and will begin preparing it.
+    </p>
+
+    <h3 style="margin-top: 20px;">
+        Total: Rs. {{ total }}
+    </h3>
+
+    <a
+        href="{{ url_for('menu') }}"
+        class="btn"
+    >
+        Continue Shopping
+    </a>
+
+</section>
+
+
+{% else %}
+
+
+<section class="checkout-section">
+
+
+    <!-- ==================================
+         CUSTOMER INFORMATION
+    =================================== -->
+
+    <div class="checkout-form">
+
+        <h2>Customer Information</h2>
+
+        <form method="POST">
+
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                required
+            >
+
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <small>
+                Your order confirmation will be
+                sent to this email address.
+            </small>
+
+
+            <label for="phone">
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="03XX XXXXXXX"
+                required
+            >
+
+
+            <label for="address">
+                Delivery Address
+            </label>
+
+            <textarea
+                id="address"
+                name="address"
+                rows="5"
+                placeholder="Enter your complete delivery address"
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Place Order
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- ==================================
+         ORDER SUMMARY
+    =================================== -->
+
+    <div class="checkout-summary">
+
+        <h2>Your Order</h2>
+
+
+        {% for item in cart %}
+
+        <div class="checkout-item">
+
+            <span>
+                {{ item.name }}
+            </span>
+
+            <strong>
+                Rs. {{ item.price }}
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+
+        <hr>
+
+
+        <div class="total">
+
+            <span>
+                Total
+            </span>
+
+            <strong>
+                Rs. {{ total }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+{% endif %}
+
+{% endblock %}

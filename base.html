@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Brew & Bean{% endblock %}</title>
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/coffee.png')}}" width="120px" height="120">
+    </div>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('menu') }}">Menu</a>
+        <a href="{{ url_for('cart') }}">
+            Cart 🛒
+            {% if session.get('cart') %}
+                <span class="cart-count">
+                    {{ session.get('cart')|length }}
+                </span>
+            {% endif %}
+        </a>
+    </nav>
+
+</header>
+
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        <div class="flash-container">
+
+            {% for message in messages %}
+
+                <div class="flash">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<footer>
+
+    <div class="footer-content">
+
+        <img src="{{ url_for('static', filename='images/coffee.png')}}" width="130px" height="130px">
+
+        <p>
+            Fresh coffee, delicious food and great moments.
+        </p>
+
+        <p>
+            © 2026 Brew & Bean. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+</body>
+</html>

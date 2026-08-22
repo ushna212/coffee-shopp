@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Menu - Brew & Bean{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+
+    <h1>Our Menu</h1>
+
+    <p>
+        Discover your favorite coffee and treats.
+    </p>
+
+</section>
+
+
+<div class="category-buttons">
+
+    <a href="{{ url_for('menu') }}"
+       class="category-btn">
+        All
+    </a>
+
+    {% for category in categories %}
+
+    <a href="{{ url_for('menu', category=category) }}"
+       class="category-btn">
+
+        {{ category }}
+
+    </a>
+
+    {% endfor %}
+
+</div>
+
+
+<section class="section">
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <img src="{{ product.image }}"
+                 alt="{{ product.name }}">
+
+            <div class="product-info">
+
+                <span class="category">
+                    {{ product.category }}
+                </span>
+
+                <h3>
+                    {{ product.name }}
+                </h3>
+
+                <p class="price">
+                    Rs. {{ product.price }}
+                </p>
+
+                <a href="{{ url_for('add_to_cart',
+                                    product_id=product.id) }}"
+                   class="btn-small">
+
+                    Add to Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <p>No products available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
