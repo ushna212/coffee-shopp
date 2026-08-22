@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Admin - Brew & Bean{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+
+    <h1>Admin Dashboard</h1>
+
+    <p>
+        Manage your coffee shop products.
+    </p>
+
+</section>
+
+
+<section class="admin-section">
+
+    <div class="admin-form">
+
+        <h2>Add New Product</h2>
+
+        <form method="POST">
+
+            <label>
+                Product Name
+            </label>
+
+            <input type="text"
+                   name="name"
+                   placeholder="Cappuccino"
+                   required>
+
+
+            <label>
+                Price
+            </label>
+
+            <input type="number"
+                   name="price"
+                   placeholder="450"
+                   required>
+
+
+            <label>
+                Category
+            </label>
+
+            <input type="text"
+                   name="category"
+                   placeholder="Coffee"
+                   required>
+
+
+            <label>
+                Image URL
+            </label>
+
+            <input type="text"
+                   name="image"
+                   placeholder="https://example.com/image.jpg">
+
+
+            <button type="submit"
+                    class="btn">
+
+                Add Product
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="admin-products">
+
+        <h2>Products</h2>
+
+        {% for product in products %}
+
+        <div class="admin-product">
+
+            <img src="{{ product.image }}"
+                 alt="{{ product.name }}">
+
+            <div>
+
+                <h3>
+                    {{ product.name }}
+                </h3>
+
+                <p>
+                    {{ product.category }}
+                </p>
+
+                <strong>
+                    Rs. {{ product.price }}
+                </strong>
+
+            </div>
+
+            <a href="{{ url_for('delete_product',
+                                product_id=product.id) }}"
+               class="delete-btn"
+               onclick="return confirm('Delete this product?')">
+
+                Delete
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
